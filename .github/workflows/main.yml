@@ -1,2 +1,38 @@
-# 서울 날씨를 5분마다 csv로 저장!!
-name: Seoul Weather Date per 5m
+name: Seoul Weather Data per 5m
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"  # 매 5분마다
+  workflow_dispatch:       # 수동 실행도 가능
+
+jobs:
+  request_weather:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Fetch weather data
+        env:
+          API_KEY: ${{ secrets.API_KEY_W }}
+        run: python weather.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions@github.com"
+          git add seoul_weather.csv
+          git commit -m "Update weather data (auto)" || echo "No changes to commit"
+          git push
+        env:
+          # GITHUB_TOKEN을 환경 변수로 전달
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
