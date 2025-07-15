@@ -3,7 +3,7 @@ import requests
 import csv
 import os
 from datetime import datetime
-API_KEY = os.getenv("API_KET_W")
+WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
 city = "seoul"
 
 url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
