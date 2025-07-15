@@ -19,9 +19,9 @@ jobs:
 
       - name: 
 
-        uses: actions/checkout@v3 # 현재 github 저장소를 가져온다
+        uses: actions/checkout@v3 
 
-        with: # 같이 진행할 작업
+        with:
 
           token: ${{ secrets.GITHUB_TOKEN }}
 
