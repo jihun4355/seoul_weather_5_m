@@ -10,6 +10,11 @@ city = "seoul"
 url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
 
 response = requests.get(url)
+
+
+if response.status_code != 200:
+    raise Exception(f"API 요청 실패: {response.status_code} - {response.text}")
+
 result = response.json()
 
 temp = result["main"]["temp"]
@@ -27,6 +32,7 @@ with open("seoul_weather.csv", "a", newline="") as file:
 
     if not csv_exist:
         writer.writerow(header)
+
     writer.writerow([current_time, weather, temp, humidity])
 
 print("서울 기온 저장 완료")
