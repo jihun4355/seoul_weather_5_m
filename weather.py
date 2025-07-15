@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 
 
-API_KEY = os.getenv("API_KEY_W")
+API_KEY_W = os.getenv("API_KEY_W")
 city = "seoul"
 
 url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
