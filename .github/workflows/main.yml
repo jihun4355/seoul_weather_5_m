@@ -1,59 +1,36 @@
-
 name: Seoul Weather Data Per 5m
 
-on: 
-
+on:
   schedule:
-
-    - cron: "*/5 * * * *" 
-
-  workflow_dispatch: 
-
+    - cron: "*/5 * * * *"  
+  workflow_dispatch:       
 jobs:
-
   request_weather:
-
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
 
     steps:
-
-      - name: 
-
-        uses: actions/checkout@v3 
-
+      - name: Checkout repository
+        uses: actions/checkout@v3
         with:
-
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 
-
+      - name: Set up Python
         uses: actions/setup-python@v4
-
         with:
-
           python-version: "3.9"
 
-      - name: 
-
+      - name: Install dependencies
         run: pip install requests
 
-      - name: 
+      - name: Run weather script
         env:
-
           API_KEY: ${{ secrets.API_KEY_W }}
-
         run: python weather.py
 
-      - name: 
-
+      - name: Commit and push changes
         run: |
-
           git config --global user.name "github-actions[bot]"
-
           git config --global user.email "github-actions@github.com"
-
           git add seoul_weather.csv
-
-          git commit -m "Update weather data (auto)"
-
+          git commit -m "Update weather data (auto)" || echo "No changes to commit"
           git push
