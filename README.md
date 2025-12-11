@@ -1,39 +1,17 @@
-# seoul_weather_5_m
-@app.route("/index")
-def index():
-    # 1) 사용자 입력 도시명 받기
-    city = request.args.get("city", "서울특별시")
+## 📄 프로젝트 발표자료 (PDF)
 
-    # 2) 도시명 → 도시ID 매핑
-    city_id = city_name_to_id.get(city)
+삼플리(Samply) – 날씨 기반 음악 추천 서비스의 전체 발표자료(PPT)는 아래 PDF에서 확인할 수 있습니다.
 
-    # 3) OpenWeather API URL 구성
-    api_key = "YOUR_OPENWEATHER_API_KEY"
-    url = (
-        f"https://api.openweathermap.org/data/2.5/weather?id={city_id}"
-        f"&appid={api_key}&units=metric"
-    )
+### 👉 [📘 **삼플리 발표 자료 PDF 열기**](./3조(삼플리).pdf)
 
-    # 4) API 호출
-    response = requests.get(url).json()
-    weather = response["weather"][0]["main"]   # Clear, Clouds, Rain...
-    temp = round(response["main"]["temp"], 1)
+GitHub는 PDF 미리보기를 지원하므로, 위 링크를 누르면 GitHub 내부에서 슬라이드를 넘겨보듯 바로 확인할 수 있습니다.
 
-    # 5) 날씨 → 키워드 변환
-    keyword = convert_weather_to_keyword(weather)
+---
 
-    # 6) 멜론 DJ 검색 및 플레이리스트 크롤링
-    playlist_links = search_melon_dj(keyword)
-    selected_playlist = random.choice(playlist_links)
+### 📌 PDF 미리보기 썸네일 (옵션)
 
-    # 7) 해당 플레이리스트에서 랜덤 3곡 추출
-    songs = crawl_playlist(selected_playlist)
+아래 이미지를 클릭해도 PDF가 열립니다:
 
-    # 8) 결과 페이지 렌더링
-    return render_template(
-        "index.html",
-        city=city,
-        weather=weather,
-        temp=temp,
-        songs=songs,
-    )
+[![PDF Preview](./ppt_cover.png)](./3조(삼플리).pdf)
+
+> *ppt_cover.png 이미지를 만들고 싶으면 말해줘! 내가 PDF 첫 페이지에서 자동으로 생성해줄게.*
