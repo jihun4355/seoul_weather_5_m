@@ -14,4 +14,3 @@ GitHub는 PDF 미리보기를 지원하므로, 위 링크를 누르면 GitHub �
 
 [![PDF Preview](./ppt_cover.png)](./3조(삼플리).pdf)
 
-> *ppt_cover.png 이미지를 만들고 싶으면 말해줘! 내가 PDF 첫 페이지에서 자동으로 생성해줄게.*
